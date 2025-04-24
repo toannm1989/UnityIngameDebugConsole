@@ -272,7 +272,12 @@ namespace IngameDebugConsole
 		[SerializeField]
 		private Image collapseButton;
 
-		[SerializeField]
+        [SerializeField]
+        private Image saveButton;
+        [SerializeField]
+        private string logFilePrefix;
+
+        [SerializeField]
 		private Image filterInfoButton;
 		[SerializeField]
 		private Image filterWarningButton;
@@ -538,7 +543,8 @@ namespace IngameDebugConsole
 			hideButton.onClick.AddListener( HideLogWindow );
 			clearButton.onClick.AddListener( ClearLogs );
 			collapseButton.GetComponent<Button>().onClick.AddListener( CollapseButtonPressed );
-			filterInfoButton.GetComponent<Button>().onClick.AddListener( FilterLogButtonPressed );
+            saveButton.GetComponent<Button>().onClick.AddListener( SaveLogsToFile );
+            filterInfoButton.GetComponent<Button>().onClick.AddListener( FilterLogButtonPressed );
 			filterWarningButton.GetComponent<Button>().onClick.AddListener( FilterWarningButtonPressed );
 			filterErrorButton.GetComponent<Button>().onClick.AddListener( FilterErrorButtonPressed );
 			snapToBottomButton.GetComponent<Button>().onClick.AddListener( () => SnapToBottom = true );
@@ -1761,7 +1767,7 @@ namespace IngameDebugConsole
 
 		public void SaveLogsToFile()
 		{
-			SaveLogsToFile( Path.Combine( Application.persistentDataPath, System.DateTime.Now.ToString( "dd-MM-yyyy--HH-mm-ss" ) + ".txt" ) );
+			SaveLogsToFile( Path.Combine( Application.persistentDataPath, System.DateTime.Now.ToString( logFilePrefix + "dd-MM-yyyy--HH-mm-ss" ) + ".txt" ) );
 		}
 
 		public void SaveLogsToFile( string filePath )
